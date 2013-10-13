@@ -17,7 +17,6 @@ func HelloWorld(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "Hello %s!", r.URL.Path[len("/hello/"):])
 	page := Page{Title: r.URL.Path[len("/hello/"):], Body: "This is a test"}
 	contentType := resolveContentType(r)
-	fmt.Println(contentType)
 	if contentType == "text/html" {
 		t, err := template.ParseFiles("templates/hello.html")
 		if err != nil {

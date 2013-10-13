@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/mattetti/go-web-api-demo/handlers"
 	"net/http"
+	"os"
+	"runtime"
 	"time"
-  "os"
-  "runtime"
 )
 
 var startedAt = expvar.NewString("startedAt")
@@ -29,6 +29,6 @@ func main() {
 
 	fmt.Println("About to start the server on port 8080")
 	http.HandleFunc("/hello/", handlers.HelloWorld)
-  http.HandleFunc("/debug", handlers.DebugVars)
+	http.HandleFunc("/debug", handlers.DebugVars)
 	http.ListenAndServe(":8080", nil)
 }
