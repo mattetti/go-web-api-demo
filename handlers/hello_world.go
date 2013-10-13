@@ -12,7 +12,7 @@ var helloTemplate *html.Template
 func init() {
 	fmt.Println("Try: /hello/world")
 	var err error
-	helloTemplate, err = html.ParseFiles("templates/hello.html")
+	helloTemplate, err = html.ParseFiles("../templates/hello.html")
 	if err != nil {
 		panic(err)
 	}
