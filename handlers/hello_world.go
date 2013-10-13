@@ -3,13 +3,19 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"html/template"
-	"log"
+	html "html/template"
 	"net/http"
 )
 
+var helloTemplate *html.Template
+
 func init() {
 	fmt.Println("Try: /hello/world")
+	var err error
+	helloTemplate, err = html.ParseFiles("templates/hello.html")
+	if err != nil {
+		panic(err)
+	}
 }
 
 func HelloWorld(w http.ResponseWriter, r *http.Request) {
@@ -18,11 +24,7 @@ func HelloWorld(w http.ResponseWriter, r *http.Request) {
 	page := Page{Title: r.URL.Path[len("/hello/"):], Body: "This is a test"}
 	contentType := resolveContentType(r)
 	if contentType == "text/html" {
-		t, err := template.ParseFiles("templates/hello.html")
-		if err != nil {
-			log.Fatal(err)
-		}
-		t.Execute(w, page)
+		helloTemplate.Execute(w, page)
 	} else {
 		// json
 		var b []byte
@@ -37,3 +39,4 @@ func HelloWorld(w http.ResponseWriter, r *http.Request) {
 		w.Write(b)
 	}
 }
+
